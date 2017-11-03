@@ -1,3 +1,5 @@
+WIP ! WIP ! WIP ! WIP ! WIP ! WIP ! WIP ! WIP
+
 # Classify
 
 Classify takes raw python objects structures, such as dicts, lists, tuples etc.
@@ -47,6 +49,7 @@ You may also nest models and Classify will follow the model hierarchy and classi
 	except TypeError as e:
 		# Treat the validation error as you wish
 
-I which case the data provided in the JSON under the key *a_reference* must conform to the model of ResourceModelB.
+I which case the data provided in the JSON under the key *a_reference* must
+conform to the model of ResourceModelB.
 
-Classify returns instances of the models to check against in the cases of classes.
+Classify returns instances of the models to check against
