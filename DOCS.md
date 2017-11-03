@@ -3,8 +3,8 @@ Module classify
 
 Functions
 ---------
-## classifier(T)
-Decorator version of register, see register(T, classifier)
+## classifier(model)
+Decorator version of register, see register(model, classifier)
 ## classify(model, data)
 Classifies the given *data* as the *model* type, any type issue will raise
 TypeError, if no error is raised it will return an instance of the
@@ -25,12 +25,12 @@ appropriate for the model/class given
 
 * model -- a model (class) to declassify the data from
 * data -- a python instance
-## register(T, classifier)
+## register(model, classifier)
 Registers a classifier for a type, this classifier is used to validate
 whether a simpler representation of a type is representative of the type
-and should return an instance of type T.
+and should return an instance of type model.
 
 **Keyword arguments**:
 
-* T -- The type to validate
+* model -- The type to validate
 * classifier -- The function that performs the validation
