@@ -1,5 +1,6 @@
 
-from classify.classify import classify, _get_metatype, _classify_instance
+from classify.classify import _get_metatype
+
 
 class _Intersection:
     pass
@@ -17,4 +18,6 @@ def intersection(*args):
     prototype = {}
     for T in args:
         prototype.update(_get_metatype(T))
-    return type('Intersection<' + ' & '.join(map(lambda a: a.__name__, args)) + '>', (_Intersection,), prototype)
+    return type(
+        'Intersection<' + ' & '.join(map(lambda a: a.__name__, args)) + '>',
+        (_Intersection,), prototype)

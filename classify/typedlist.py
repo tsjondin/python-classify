@@ -1,6 +1,7 @@
 
 from classify.classify import classify
 
+
 class _TypedList:
     pass
 

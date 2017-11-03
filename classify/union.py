@@ -1,6 +1,7 @@
 
 from classify.classify import classify
 
+
 class _Union:
     pass
 
@@ -14,7 +15,9 @@ def union(*args):
 
     types - The types of which the data must be one of
     """
-    return type('Union<' + ' | '.join(map(lambda a: a.__name__, args)) + '>', (_Union,), dict(types=args))
+    return type(
+        'Union<' + ' | '.join(map(lambda a: a.__name__, args)) + '>',
+        (_Union,), dict(types=args))
 
 
 def classify_union(data, u):
