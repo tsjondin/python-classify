@@ -1,7 +1,6 @@
 
 import inspect
 from collections import namedtuple
-from enum import Enum
 
 
 PRIMITIVES = frozenset([int, float, str, bool, None])
@@ -78,7 +77,9 @@ def register(T, func):
     _registered_classifiers.add(
         _classifier(basetype=T, to_class=func))
 
+
 def classifier(T):
+    """ Decorator version of register """
     def wrapper(func):
         register(T, func)
     return wrapper
@@ -95,15 +96,3 @@ def declassify(model, data):
     data - a python instance
     """
     pass
-
-
-@classifier(Enum)
-def _classify_enum(data, T):
-    if not isinstance(data, str) and not isinstance(data, int):
-        raise TypeError('Can only classify as Enum using key strings or int values')
-    for name, value in vars(T).items():
-        if name == data:
-            return value
-        elif value == data:
-            return value
-    raise TypeError('Invalid key/value for Enum {}'.format(T))
