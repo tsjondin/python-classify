@@ -16,13 +16,14 @@ classify(data, model)
     model -- a model (class) to classify the data as
 
 declassify(model, data)
+    !! NOT YET IMPLEMENTED !!
+
     Delassifies the given *data* from the *model* model/type, any type issue
     will raise TypeError, if no error is raised it will return a python type
     appropriate for the model/class given
 
-    model - a model (class) to declassify the data from
-
-    data - a python instance
+    model -- a model (class) to declassify the data from
+    data -- a python instance
 
 register(T, classifier)
     Registers a classifier for a type, this classifier is used to validate
