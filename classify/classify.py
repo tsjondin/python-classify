@@ -3,7 +3,7 @@ import inspect
 from collections import namedtuple
 
 
-PRIMITIVES = frozenset([int, float, str, bool, None])
+_PRIMITIVES = frozenset([int, float, str, bool, None])
 _classifier = namedtuple('Classifier', ['basetype', 'to_class'])
 _registered_classifiers = set([])
 
@@ -61,7 +61,7 @@ def classify(data, model):
     data -- a python datastructure, such as dict, list etc.
     model -- a model (class) to classify the data as
     """
-    if model in PRIMITIVES:
+    if model in _PRIMITIVES:
         return _classify_primitive(data, model)
 
     if inspect.isclass(model):
@@ -73,13 +73,21 @@ def classify(data, model):
         raise TypeError('cannot classify into non-class "{}"'.format(model))
 
 
-def register(T, func):
+def register(T, classifier):
+    """ Registers a classifier for a type, this classifier is used to validate
+    whether a simpler representation of a type is representative of the type
+    and should return an instance of type T.
+
+    Keyword arguments:
+    T -- The type to validate
+    classifier -- The function that performs the validation
+    """
     _registered_classifiers.add(
-        _classifier(basetype=T, to_class=func))
+        _classifier(basetype=T, to_class=classifier))
 
 
 def classifier(T):
-    """ Decorator version of register """
+    """ Decorator version of register, see register(T, classifier) """
     def wrapper(func):
         register(T, func)
     return wrapper
