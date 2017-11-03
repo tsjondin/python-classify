@@ -5,7 +5,7 @@ from pytest import raises, mark
 
 def test_int():
     int_type = int
-    assert classify(1, int_type) == 1
+    assert classify(int_type, 1) == 1
 
 
 @mark.parametrize('data', [
@@ -19,12 +19,12 @@ def test_int():
 def test_not_int(data):
     int_type = int
     with raises(TypeError):
-        classify(data, int_type)
+        classify(int_type, data)
 
 
 def test_float():
     float_type = float
-    assert classify(1.0, float_type) == 1.0
+    assert classify(float_type, 1.0) == 1.0
 
 
 @mark.parametrize('data', [
@@ -38,12 +38,12 @@ def test_float():
 def test_not_float(data):
     float_type = float
     with raises(TypeError):
-        classify(data, float_type)
+        classify(float_type, data)
 
 
 def test_str():
     str_type = str
-    assert classify("Hej", str_type) == "Hej"
+    assert classify(str_type, "Hej") == "Hej"
 
 
 @mark.parametrize('data', [
@@ -57,12 +57,12 @@ def test_str():
 def test_not_str(data):
     str_type = str
     with raises(TypeError):
-        classify(data, str_type)
+        classify(str_type, data)
 
 
 def test_bool():
     bool_type = bool
-    assert classify(True, bool_type) is True
+    assert classify(bool_type, True) is True
 
 
 @mark.parametrize('data', [
@@ -75,12 +75,12 @@ def test_bool():
 def test_not_bool(data):
     bool_type = bool
     with raises(TypeError):
-        classify(data, bool_type)
+        classify(bool_type, data)
 
 
 def test_none():
     none_type = None
-    assert classify(None, none_type) is None
+    assert classify(none_type, None) is None
 
 
 @mark.parametrize('data', [
@@ -95,4 +95,4 @@ def test_none():
 def test_not_none(data):
     none_type = None
     with raises(TypeError):
-        classify(data, none_type)
+        classify(none_type, data)

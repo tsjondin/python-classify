@@ -5,15 +5,15 @@ Functions
 ---------
 ## classifier(T)
 Decorator version of register, see register(T, classifier)
-## classify(data, model)
+## classify(model, data)
 Classifies the given *data* as the *model* type, any type issue will raise
 TypeError, if no error is raised it will return an instance of the
 type/model given as the *model*
 
 **Keyword arguments**:
 
-* data -- a python datastructure, such as dict, list etc.
 * model -- a model (class) to classify the data as
+* data -- a python datastructure, such as dict, list etc.
 ## declassify(model, data)
 !! NOT YET IMPLEMENTED !!
 

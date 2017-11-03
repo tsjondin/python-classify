@@ -23,7 +23,7 @@ def union(*args):
 def classify_union(data, u):
     for T in u.types:
         try:
-            return classify(data, T)
+            return classify(T, data)
         except TypeError as e:
             pass
     raise TypeError('Data {} did not match any type in {}'.format(data, u))

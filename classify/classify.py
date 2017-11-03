@@ -47,13 +47,13 @@ def _classify_instance(data, T):
     metatype = _get_metatype(T)
     for key, item_type in metatype.items():
         if hasattr(instance, key):
-            setattr(instance, key, classify(data.get(key, None), item_type))
+            setattr(instance, key, classify(item_type, data.get(key, None)))
         else:
             raise TypeError('Type does not have attribute {}'.format(key))
     return instance
 
 
-def classify(data, model):
+def classify(model, data):
     """
     Classifies the given *data* as the *model* type, any type issue will raise
     TypeError, if no error is raised it will return an instance of the
@@ -61,8 +61,8 @@ def classify(data, model):
 
     **Keyword arguments**:
 
-    * data -- a python datastructure, such as dict, list etc.
     * model -- a model (class) to classify the data as
+    * data -- a python datastructure, such as dict, list etc.
     """
     if model in _PRIMITIVES:
         return _classify_primitive(data, model)

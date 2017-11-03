@@ -8,4 +8,4 @@ from pytest import mark
     (union(int, float), 1.0),
 ])
 def test_union(T, data):
-    assert classify(data, T) == data
+    assert classify(T, data) == data

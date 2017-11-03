@@ -193,5 +193,5 @@ API where all resources may have uuid and name.
 
 The data must now conform must now fullfill the interface of both the
 SpecificResource and IdentifiableResource, it will be an instanceof
-Intersection<SpecificResource, IdentifiableResource> and inherit from both of
+Intersection<SpecificResource & IdentifiableResource> and inherit from both of
 their classes.
