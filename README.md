@@ -1,15 +1,16 @@
 # Classify
 
-Classify takes raw python object structures, such as dicts, lists, tuples etc.
-and validates them against given typed models and return the object structure
-as instances of the models they are validated against.
+Classify takes python object structures, such as dicts, lists, tuples etc.
+and validates them against given typed models (classes), returning the object
+structure as instances of the models they were validated against.
 
-Classify consideres all types based on a class to be a model, and expects the properties on the models to have types as values to validate against, such as:
+Classify considers all types based on a classes to be models, and expects the
+properties on the models to have types as values to validate against, such as:
 
 	class A:
 		property = str
 
-To classify data against this model you would have a raw dict:
+To classify data against this model you would have a dict:
 
 	{"property": "Hello world!"}
 
