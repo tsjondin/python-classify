@@ -38,8 +38,10 @@ def _classify_instance(data, T):
     Internal function that instantiates type classes and assigns members while
     typecheking them, it returns an instance of T
 
-    data -- data to assign
-    T -- type to instantiate
+    **Keyword arguments**:
+
+    * data -- data to assign
+    * T -- type to instantiate
     """
     instance = T()
     metatype = _get_metatype(T)
@@ -57,9 +59,10 @@ def classify(data, model):
     TypeError, if no error is raised it will return an instance of the
     type/model given as the *model*
 
-    Keyword arguments:
-    data -- a python datastructure, such as dict, list etc.
-    model -- a model (class) to classify the data as
+    **Keyword arguments**:
+
+    * data -- a python datastructure, such as dict, list etc.
+    * model -- a model (class) to classify the data as
     """
     if model in _PRIMITIVES:
         return _classify_primitive(data, model)
@@ -74,13 +77,15 @@ def classify(data, model):
 
 
 def register(T, classifier):
-    """ Registers a classifier for a type, this classifier is used to validate
+    """
+    Registers a classifier for a type, this classifier is used to validate
     whether a simpler representation of a type is representative of the type
     and should return an instance of type T.
 
-    Keyword arguments:
-    T -- The type to validate
-    classifier -- The function that performs the validation
+    **Keyword arguments**:
+
+    * T -- The type to validate
+    * classifier -- The function that performs the validation
     """
     _registered_classifiers.add(
         _classifier(basetype=T, to_class=classifier))
@@ -97,11 +102,13 @@ def declassify(model, data):
     """
     !! NOT YET IMPLEMENTED !!
 
-    Delassifies the given *data* from the *model* model/type, any type issue
+    Declassifies the given *data* from the *model* model/type, any type issue
     will raise TypeError, if no error is raised it will return a python type
     appropriate for the model/class given
 
-    model -- a model (class) to declassify the data from
-    data -- a python instance
+    **Keyword arguments**:
+
+    * model -- a model (class) to declassify the data from
+    * data -- a python instance
     """
     pass
