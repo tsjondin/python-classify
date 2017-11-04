@@ -12,16 +12,20 @@ properties on the models to have types as values to validate against, such as:
 
 To classify data against this model you would have a dict:
 
-	{"property": "Hello world!"}
+	data = {"property": "Hello world!"}
 
-which would validate against the model and classify will return an instance of
-the model A with its "property" set to "Hello world!"
+And then call classify:
+
+	obj = classify(A, data)
+
+This would validate against the model A and return an instance of the model A
+with its "property" set to "Hello world!"
 
 ## Usefullness
 
 One may have a REST api which recieves JSON data, simply loading this data
 and assuming that it is correct may be dangerous and error prone. Writing
-explicit validators is tedious, with a library such as classify you simply
+explicit validators is tedious. With a library such as classify you simply
 write a model that the data should conform to.
 
 	class ResourceModel:
@@ -38,7 +42,7 @@ Such as this ResourceModel, using it is as easy as:
 		# Treat the validation error as you wish
 
 Given this example the data given by json.loads must conform to the
-ResourceModel, that is it must look something like:
+ResourceModel, that is, it must look something like:
 
 	{
 		"name": "some name",
@@ -70,7 +74,8 @@ conform to the model of ResourceModelB.
 
 ## Types
 
-As said before classify sees all classes as models, so while not really usefull a model can be as simple as only a string, e.g.:
+As said before; classify sees all classes as models, so, while not really
+usefull, a model can be as simple as only a string, e.g.:
 
 	classify(str, "Hello world!")
 
@@ -160,19 +165,21 @@ options using Unions.
 	class SNMPv3NoAuthNoPriv:
     		userName = str
 
-	class AnSNMPUsingResource
+	class SNMPUsingResource
 		snmp = union(SNMPv2, SNMPv3, SNMPv3NoAuth, SNMPv3NoAuthNoPriv)
 		...
 
-Here the class AnSNMPUsingResource represents a resource we want to create from
+Here the class SNMPUsingResource represents a resource we want to create from
 a POST request, it should contain SNMP options, but the backend supports all
 versions of SNMP so how do we validate the options when they depend on other
-options? Using unions!
+options?
 
-If the request only contains a community property (with a string value) under
-its "snmp" key, the resource.snmp of the resource instance will be an instance
-of SNMPv2. If all v3 options are supplied you will get an SNMPv3 instance and so on.
-Any non-matching combinations will result in a union error (i.e. data does not
+With classify you can solve this using Unions, if the request only contains a
+community property (with a string value) under its "snmp" key, the
+resource.snmp of the resource instance will be an instance of SNMPv2.
+
+If all v3 options are supplied you will get an SNMPv3 instance and so on. Any
+non-matching combinations will result in a union error (i.e. data does not
 match any model in union)
 
 ## Intersection
@@ -192,7 +199,11 @@ API where all resources may have uuid and name.
 
 	classify(intersection(SpecificResource, IdentifiableResource), ...data)
 
-The data must now conform must now fullfill the interface of both the
-SpecificResource and IdentifiableResource, it will be an instanceof
-Intersection<SpecificResource & IdentifiableResource> and inherit from both of
-their classes.
+The data must now fullfill the interface of both the SpecificResource and
+IdentifiableResource, if it does then classify will return an instanceof
+with the type Intersection<SpecificResource & IdentifiableResource> which
+inherits from both of the classes.
+
+It does this inheritance to that one may use isinstance for checking types
+since the Intersection type is dynamic and not accessable from call-site
+without retrieving it via the type() function.
