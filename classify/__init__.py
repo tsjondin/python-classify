@@ -11,7 +11,6 @@ def _classify_enum(data, T):
         raise TypeError(
             'Can only classify as Enum using key strings or int values')
     for name, value in vars(T).items():
-        print(name, value)
         if name == data:
             return value
         elif value == data:

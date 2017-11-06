@@ -44,12 +44,18 @@ def _classify_instance(data, model):
     """
     instance = model()
     definition = _get_definition(model)
-    for key, item_type in definition.items():
+    expected = set(definition.keys())
+    checked = set([])
+    for key, value in data.items():
         if hasattr(instance, key):
-            setattr(instance, key, classify(item_type, data.get(key, None)))
+            setattr(instance, key, classify(definition.get(key, None), value))
+            checked.add(key)
         else:
             raise TypeError('Type {} does not have attribute {}'.format(
                 model.__name__, key))
+    if not checked <= expected:
+        raise TypeError('Type {} expected attribute {}'.format(
+            model.__name__, ', '.join(expected)))
     return instance
 
 
