@@ -109,19 +109,3 @@ def classifier(model):
     def wrapper(func):
         register(model, func)
     return wrapper
-
-
-def declassify(model, data):
-    """
-    !! NOT YET IMPLEMENTED !!
-
-    Declassifies the given *data* from the *model* model/type, any type issue
-    will raise TypeError, if no error is raised it will return a python type
-    appropriate for the model/class given
-
-    **Keyword arguments**:
-
-    * model -- a model (class) to declassify the data from
-    * data -- a python instance
-    """
-    pass

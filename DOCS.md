@@ -14,17 +14,6 @@ type/model given as the *model*
 
 * model -- a model (class) to classify the data as
 * data -- a python datastructure, such as dict, list etc.
-## declassify(model, data)
-!! NOT YET IMPLEMENTED !!
-
-Declassifies the given *data* from the *model* model/type, any type issue
-will raise TypeError, if no error is raised it will return a python type
-appropriate for the model/class given
-
-**Keyword arguments**:
-
-* model -- a model (class) to declassify the data from
-* data -- a python instance
 ## register(model, classifier)
 Registers a classifier for a type, this classifier is used to validate
 whether a simpler representation of a type is representative of the type
