@@ -42,13 +42,19 @@ def _classify_instance(data, model):
     * data -- data to assign
     * model -- type to instantiate
     """
-    instance = model()
+    try:
+        instance = model()
+    except Exception as e:
+        raise TypeError(
+            'Could not instantiate Type {}, is this a proper classify ' +
+            'model or is it a Type in need of a classifier?'.format(
+                model.__name__))
     definition = _get_definition(model)
     expected = set(definition.keys())
     checked = set([])
     for key, value in data.items():
         if hasattr(instance, key):
-            setattr(instance, key, classify(definition.get(key, None), value))
+            setattr(instance, key, classify(definition.get(key, type(None)), value))
             checked.add(key)
         else:
             raise TypeError('Type {} does not have attribute {}'.format(
